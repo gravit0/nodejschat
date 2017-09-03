@@ -30,3 +30,6 @@
 .user {
 	color: rgb(25, 25, 112);
 }
+.admin {
+	color: red;
+}
