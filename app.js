@@ -239,10 +239,11 @@ io.sockets.on('connection', function (socket) {
                 if(user.isAdmin) {
                     var name = json['name'];
                     var userid = bannedusers.indexOf(name);
-                    
-                    bannedusers.splice(userid,1);
-                    socket.json.send({'event': 'unban', 'admin': user.ID, 'user': name});
-                    socket.broadcast.json.send({'event': 'unban', 'admin': user.ID, 'user': name});
+                    if(userid !== undefined) {
+                        bannedusers.splice(userid,1);
+                        socket.json.send({'event': 'unban', 'admin': user.ID, 'user': name});
+                        socket.broadcast.json.send({'event': 'unban', 'admin': user.ID, 'user': name});
+                    }
                 }
                 else server.returnAssessDenied (user);
             }
