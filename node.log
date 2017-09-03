@@ -3177,3 +3177,24 @@ aHQ-R_KK log in to ARRS
 Connect 3-2WVBQC
 Connect SzBwCBpY
 SzBwCBpY log in to ARRRS
+/srv/http/backend/node/app.js:17
+    user.socket.json.send("event": 'cmderror','error': "Assess Denied");
+                          ^^^^^^^
+
+SyntaxError: missing ) after argument list
+    at createScript (vm.js:74:10)
+    at Object.runInThisContext (vm.js:116:10)
+    at Module._compile (module.js:537:28)
+    at Object.Module._extensions..js (module.js:584:10)
+    at Module.load (module.js:507:32)
+    at tryModuleLoad (module.js:470:12)
+    at Function.Module._load (module.js:462:3)
+    at Function.Module.runMain (module.js:609:10)
+    at startup (bootstrap_node.js:158:16)
+    at bootstrap_node.js:598:3
+Server on 8001
+PID успешно записан в файл
+Connect w8PSCxYz
+w8PSCxYz log in to ARRRS
+Connect 7Nd8gFyz
+7Nd8gFyz log in to Gravit

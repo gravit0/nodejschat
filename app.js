@@ -12,6 +12,10 @@ server.sendAll = function(text)
         item.socket.json.send(text);
     });
 }
+server.returnAssessDenied = function(user)
+{
+    user.socket.json.send({"event": 'cmderror','error': "Assess Denied"});
+}
 server.sendUser = function(user,text)
 {
     if(user.allows.readchat)
@@ -151,6 +155,7 @@ io.sockets.on('connection', function (socket) {
                     socket.broadcast.json.send({'event': 'say', 'name': ID,'text': json['text']});
                     console.log(ID+' say:'+json['text']);
                 }
+                else server.returnAssessDenied (user);
             }
             
             else if(json['command'] == 'users')
@@ -191,6 +196,7 @@ io.sockets.on('connection', function (socket) {
                     console.log(targetclient);
                     targetclient.socket.disconnect(true);
                 }
+                else server.returnAssessDenied (user);
             }
             else if(json['command'] == 'ban')
             {
@@ -209,6 +215,7 @@ io.sockets.on('connection', function (socket) {
                     bannedusers.push(json['name']);
                     targetclient.socket.disconnect(true);
                 }
+                else server.returnAssessDenied (user);
             }
             else if(json['command'] == 'makeadmin')
             {
@@ -225,16 +232,19 @@ io.sockets.on('connection', function (socket) {
                     socket.broadcast.json.send({'event': 'makeadmin', 'admin': user.ID, 'user': json['name']});
                     if(!json['fake']) targetclient.isAdmin = true;
                 }
+                else server.returnAssessDenied (user);
             }
             else if(json['command'] == 'unban')
             {
                 if(user.isAdmin) {
                     var name = json['name'];
                     var userid = bannedusers.indexOf(name);
-                    if(userid) bannedusers.splice(userid,1);
-                    if(userid) socket.json.send({'event': 'unban', 'admin': user.ID, 'user': name});
-                    if(userid) socket.broadcast.json.send({'event': 'unban', 'admin': user.ID, 'user': name});
+                    
+                    bannedusers.splice(userid,1);
+                    socket.json.send({'event': 'unban', 'admin': user.ID, 'user': name});
+                    socket.broadcast.json.send({'event': 'unban', 'admin': user.ID, 'user': name});
                 }
+                else server.returnAssessDenied (user);
             }
         }
         socket.json.send({'event': 'ping'});

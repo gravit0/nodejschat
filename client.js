@@ -137,6 +137,10 @@ $.client.socket.message =  function (msg) {
 			//document.querySelector('#log').innerHTML += strings[msg.event].replace(/\[([a-z]+)\]/g, '<span class="$1">').replace(/\[\/[a-z]+\]/g, '</span>').replace(/\%time\%/, msg.time).replace(/\%name\%/, msg.name).replace(/\%text\%/, unescape(msg.text).replace('<', '&lt;').replace('>', '&gt;')) + '<br>';
             console.log(msg);
             if(msg.event == "ping") return;
+            if(msg.event == "cmderror"){
+                alert("Одна из ваших комманд завершилась с ошибкой: "+msg.error);
+                return;
+            }
             if(msg.event == 'cmd')
             {
                 if(msg.command = 'history')
