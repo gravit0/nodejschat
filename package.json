@@ -1,0 +1,12 @@
+{
+  "name": "nodejschat",
+  "version": "0.1.0",
+  "devDependencies": {},
+  "repository": "https://github.com/gravit0/nodejschat",
+  "license": "GPL-3.0",
+  "description": "Simple chat",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "socket.io": "^2.0.4"
+  }
+}
