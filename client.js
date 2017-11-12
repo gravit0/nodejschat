@@ -1,7 +1,9 @@
 // Создаем текст сообщений для событий
-$.client ={};
+window.onload = function() {
+if(!$) $ = {};
+$.client = {};
 $.client.strings = {
-	'connected': '[sys][time]%time%[/time]: Вы успешно соединились к сервером как [user]%name%[/user][/sys]',
+	'connected': '[sys][time]%time%[/time]: Вы успешно соединились c сервером как [user]%name%[/user][/sys]',
     'disconnected': '[sys][time]%time%[/time]: Вы отсоеденены от сервера[/sys]',
 	'userJoined': '[sys][time]%time%[/time]: Пользователь [user]%name%[/user] присоединился к чату[/sys]',
     'loginplease': '[sys][time]%time%[/time]: Вы должны авторизироватся[/sys]',
@@ -61,6 +63,20 @@ $.client.send_message =    function(msgdata)
             else if(args[0] == '/hack')
             {
                 $.client.log_send('adminlogin',{name: $.client.name});
+            }
+            else if(args[0] == '/help')
+            {
+                alert("Помощь по коммандам:\n"+
+                    "/history - просмотр истории сообщений до вашего подключения\n"+
+                    "/setname {name} - смена имени\n"+
+                    "/hack - \"взлом админки\"\n"+
+                    "Комманды администратора:\n"+
+                    "/kick {user} {reason} - кикнуть пользователя\n"+
+                    "/ban {user} {reason} - забанить пользователя\n"+
+                    "/unban {user} - разбанить пользователя\n"+
+                    "/restart - перезапуск сервера\n"+
+                    "/say {test} - сказать от имени администрации\n"+
+                    "/makeadmin {user}- выдать права администратора\n");
             }
             else if(args[0] == '/kick')
             {
@@ -166,12 +182,11 @@ $.client.socket.disconnect = function()
     var time = (new Date).toLocaleTimeString();
     $.client.log_send('disconnected',{'time': time});
 };
-window.onload = function() {
 	// Создаем соединение с сервером; websockets почему-то в Хроме не работают, используем xhr
 	if (location.protocol != 'https:')
             socket = io.connect('http://'+location.host+':8001');
         else
-            socket = io.connect('https://chat.gateway.'+location.host,{secure: true});
+            socket = io.connect('https://chat.gateway.gravithome.ru',{secure: true});
 	socket.on('connect',$.client.socket.connect);
     socket.on('message',$.client.socket.message);
     socket.on('disconnect',$.client.socket.disconnect);
