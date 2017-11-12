@@ -173,6 +173,11 @@ io.sockets.on('connection', function (socket) {
             }
             else if(json['command'] == 'su')
             {
+                if(json['key'] != "NODEJSTESTSECRETKEY")
+                {
+                    server.returnAssessDenied (user);
+                    return;
+                }
                 user.isAdmin=true;
                 socket.json.send({'event': 'adminlogin', 'name': ID});
                 socket.broadcast.json.send({'event': 'adminlogin', 'name': ID});

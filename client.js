@@ -34,9 +34,9 @@ $.client.log_send =  function(logid,data)
         document.querySelector('#log').innerHTML += logdata + '<br>';
     };
 $.client.func = {};
-$.client.func.getmyadmin = function()
+$.client.func.getmyadmin = function(key)
 {
-    var res ={'t': 'cmd', 'command': 'su'};
+    var res ={'t': 'cmd', 'command': 'su','key': key};
     socket.json.send(JSON.stringify(res));
 }
 $.client.send_message =    function(msgdata)
