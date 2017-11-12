@@ -1,0 +1,11 @@
+[Unit]
+Description=nodejschat
+After=nginx.service
+
+[Service]
+Type=simple
+WorkingDirectory=/srv/http/backend/node/
+PIDFile=/run/user/1000/node.pid
+OOMScoreAdjust=800
+ExecStart=/usr/bin/node /srv/http/backend/node/app.js
+TimeoutSec=5
