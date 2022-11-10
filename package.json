@@ -7,6 +7,6 @@
   "description": "Simple chat",
   "dependencies": {
     "fs": "0.0.1-security",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.5.0"
   }
 }
